@@ -58,12 +58,6 @@
     (when (not (package-installed-p pkg))
       (package-install pkg))))
 
-;; (defun edmistond/eval-and-clear ()
-;;   "Evaluates a region and then unselects it."
-;;   (interactive)
-;;   (eval-region)
-;;   (set 'deactivate-mark t))
-
 ;; don't want the scroll or tool bars
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -110,7 +104,6 @@
   "j" 'ace-jump-mode
   "er" 'eval-region
   "eb" 'erase-buffer
-  ;; "ev" 'edmistond/eval-and-clear
   "ms" 'magit-status
   "cc" 'comment-region
   "uc" 'uncomment-region)
@@ -152,24 +145,6 @@
 	     (local-set-key (kbd "<M-left>") 'windmove-left)
 	     (local-set-key (kbd "<M-up>") 'windmove-up)
 	     (local-set-key (kbd "<M-down>") 'windmove-down)))
-
-
-;; ;; auto-indent various kinds of files
-;; (add-hook 'js-mode-hook '(lambda ()
-;; 			   (local-set-key (kbd "RET") 'newline-and-indent)))
-
-;; (add-hook 'js-mode-hook '(lambda ()
-;; 			   (setq js-indent-level 2)))
-
-;; (add-hook 'ruby-mode-hook '(lambda ()
-;; 			     (local-set-key (kbd "RET") 'newline-and-indent)))
-
-;; (add-hook 'enh-ruby-mode-hook '(lambda ()
-;; 				 (local-set-key (kbd "RET") 'newline-and-indent)))
-
-;; (add-hook 'web-mode-hook '(lambda ()
-;; 			    (local-set-key (kbd "RET") 'newline-and-indent)))
-
 
 ;; web-mode.el settings, mostly to have certain kinds of files automatically trigger it.
 (require 'web-mode)
