@@ -69,7 +69,6 @@
 (delete-selection-mode 1)
 
 (load-theme 'solarized-light t)
-;; (set-default-font "SourceCodePro-Medium-12")
 (set-face-attribute 'default nil
 		    :family "Source Code Pro" :height 122 :weight 'normal)
 
