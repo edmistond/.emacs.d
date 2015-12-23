@@ -18,9 +18,10 @@
 			     evil
 			     evil-leader
 			     evil-surround
-			     git-commit-mode
-			     git-rebase-mode
+			     golden-ratio
 			     goto-chg
+			     helm
+			     helm-projectile
 			     inf-ruby
 			     json-reformat
 			     key-chord
@@ -30,6 +31,7 @@
 			     popup
 			     powerline
 			     powerline-evil
+			     projectile
 			     robe
 			     ruby-block
 			     ruby-electric
@@ -41,6 +43,7 @@
 			     smart-newline
 			     solarized-theme
 			     spacegray-theme
+			     ujelly-theme
 			     undo-tree
 			     web-beautify
 			     web-mode)
@@ -58,9 +61,27 @@
     (when (not (package-installed-p pkg))
       (package-install pkg))))
 
+(add-to-list 'load-path "~/.emacs.d/custom/")
+(autoload 'jscs-indent-apply "jscs" nil t)
+(autoload 'jscs-fix "jscs" nil t)
+(autoload 'jscs-fix-before-save "jscs" nil t)
+
+
 ;; don't want the scroll or tool bars
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; helm and projectile setup
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(setq projectile-indexing-method 'alien)
+
+;; start flycheck globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (set-default 'truncate-lines t)
 (setq inhibit-startup-message t)
@@ -68,20 +89,23 @@
 
 (delete-selection-mode 1)
 
-(load-theme 'solarized-light t)
+(load-theme 'base16-codeschool-dark t)
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Source Code Pro" :height 122 :weight 'normal)
+		    :family "Hack" :height 110 :weight 'normal)
+
+(global-auto-revert-mode t)
 
 (setq tab-width 2
       indent-tabs-mode nil)
 
 (setq make-backup-files nil)
+(setq auto-save-default nil)
 
 ;; disable command-as-super, because i keep hitting cmd-x to kill region
 ;; by accident and it's super (hah) annoying
-(setq ns-command-modifier nil)
+;;(setq ns-command-modifier nil)
 
 ;; Do you really want to type yes and no ALL THE TIME?
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -97,6 +121,8 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer) 
 (global-set-key (kbd "RET") 'smart-newline)
 
+(global-set-key (kbd "C-c C-s C-w") 'delete-trailing-whitespace)
+
 ;; *******************
 ;; **** evil mode ****
 ;; *******************
@@ -110,9 +136,12 @@
   "k" 'kill-buffer
   "x" 'execute-extended-command
   "j" 'ace-jump-mode
+  "df" 'delete-frame
+  "mf" 'make-frame
   "er" 'eval-region
   "eb" 'erase-buffer
   "ms" 'magit-status
+  "tfd" 'tern-find-definition
   "cc" 'comment-region
   "uc" 'uncomment-region)
 
@@ -151,6 +180,12 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 ; Make horizontal movement cross lines                                    
 (setq-default evil-cross-lines t)
+
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-a" 'beginning-of-line)
 
 ;; **** end evil mode ****
 ;; ***********************
@@ -200,15 +235,89 @@
 (setq org-log-done 'time)
 (put 'erase-buffer 'disabled nil)
 
+
 ;; **** ruby and robe mode configuration ****
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rb\\'" . robe-mode))
+(add-hook 'enh-ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
 
 ;; TODO: additional Ruby configuration
 
-;; TODO: javascript/js2 mode configuration
+;;TODO: javascript/js2 mode configuration
+(defun js-custom ()
+  "js-mode-hooks"
+  (tern-mode t)
+  (setq js-indent-level 2))
+
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
+
+(defun delete-tern-process ()
+  (interactive)
+  (delete-process "Tern"))
+
+
+(add-hook 'js-mode-hook 'js-custom)
+;; (eval-after-load 'js-mode
+;;   '(define-key js-mode-map "M-." 'tern-find-definition))
 
 (require 'linum)
 (require 'linum-relative)
-(linum-mode 1)
+;; (global-linum-mode t)
 
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+(global-auto-revert-mode t)
+
+;; (setq-default flycheck-disabled-checkers '(javascript-jshint))
+;; (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+;; (setq-default flycheck-disabled-checkers '(emacs-lisp))
+
+(setq-default flycheck-disabled-checkers
+	      (append '(javascript-jshint
+			emacs-lisp
+			emacs-lisp-checkdoc)))
+
+;; org-mode customizations
+(setq org-log-done t
+      org-todo-keywords '((sequence "TODO" "INPROGRESS" "CANNOTREPRO" "NEEDINFO" "DEFERRED" "|" "DONE" "DEPLOYED" "WONTFIX"))
+      org-todo-keyword-faces '(("INPROGRESS" . (:foreground "SteelBlue1" :weight bold))
+			       ("DEPLOYED" . (:foreground "pale green" :weight bold))
+			       ("WONTFIX" . (:foreground "indian red" :weight bold))
+			       ("CANNOTREPRO" . (:foreground "red" :weight bold))
+			       ("NEEDINFO" . (:foreground "yellow1" :weight bold))
+			       ("DEFERRED" . (:foregorund "cornsilk3" :weight bold))))
+
+;; update org-mode clock tables not to use annoying \emsp
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "^"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "--")))
+      (concat str "-> "))))
+
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+(setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+
+(add-hook 'jade-mode-hook
+	  '(lambda ()
+	     (setq tab-width 2)))
+
+(defun bf-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+        (backward-char) (insert "\n"))
+      (indent-region begin end))
+    (message "Ah, much better!"))
