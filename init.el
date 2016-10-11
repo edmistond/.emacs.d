@@ -9,11 +9,13 @@
 
 (package-initialize)
 (setq package-archive-enable-alist '(("melpa" magit)))
-
 (defvar edmistond/packages '(ace-jump-mode
+			     ag
 			     auto-complete
 			     base16-theme
 			     buffer-move
+			     csharp-mode
+			     dracula-theme
 			     enh-ruby-mode
 			     evil
 			     evil-leader
@@ -31,6 +33,7 @@
 			     popup
 			     powerline
 			     powerline-evil
+			     powershell
 			     projectile
 			     robe
 			     ruby-block
@@ -41,8 +44,10 @@
 			     ruby-interpolation
 			     rvm
 			     smart-newline
+			     spaceline
 			     solarized-theme
 			     spacegray-theme
+			     spacemacs-theme
 			     ujelly-theme
 			     undo-tree
 			     web-beautify
