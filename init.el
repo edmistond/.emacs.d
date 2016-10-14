@@ -9,8 +9,10 @@
 
 (package-initialize)
 (setq package-archive-enable-alist '(("melpa" magit)))
-(defvar edmistond/packages '(ace-jump-mode
+(defvar edmistond/packages '(
+			     ace-window
 			     ag
+			     avy
 			     auto-complete
 			     base16-theme
 			     buffer-move
@@ -94,11 +96,11 @@
 
 (delete-selection-mode 1)
 
-(load-theme 'base16-codeschool-dark t)
+(load-theme 'base16-eighties-dark t)
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Hack" :height 110 :weight 'normal)
+		    :family "Menlo" :height 110 :weight 'normal)
 
 (global-auto-revert-mode t)
 
@@ -140,7 +142,7 @@
   "b" 'ibuffer
   "k" 'kill-buffer
   "x" 'execute-extended-command
-  "j" 'ace-jump-mode
+  "j" 'avy-goto-word-or-subword-1
   "df" 'delete-frame
   "mf" 'make-frame
   "er" 'eval-region
@@ -200,6 +202,8 @@
 ;; more useful things like marking regions. although with evil
 ;; visual mode, may not matter!
 (windmove-default-keybindings 'meta)
+
+(global-set-key (kbd "M-p") 'ace-window)
 
 ;; prevent markdown-mode from stealing the windmove meta keybindings
 (add-hook 'markdown-mode-hook
@@ -281,9 +285,10 @@
 ;; (setq-default flycheck-disabled-checkers '(emacs-lisp))
 
 (setq-default flycheck-disabled-checkers
-	      (append '(javascript-jshint
-			emacs-lisp
-			emacs-lisp-checkdoc)))
+              (append '(javascript-jshint
+                        javascript-jscs
+                        emacs-lisp
+                        emacs-lisp-checkdoc)))
 
 ;; org-mode customizations
 (setq org-log-done t
