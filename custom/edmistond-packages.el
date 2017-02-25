@@ -66,7 +66,7 @@
   (package-refresh-contents)
   (dolist (pkg edmistond/packages)
     (when (not (package-installed-p pkg))
-      (pakage-install pkg))))
+      (package-install pkg))))
 
 (message "init-packages complete!")
 (provide 'edmistond-packages)
