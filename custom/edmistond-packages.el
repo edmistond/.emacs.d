@@ -15,6 +15,7 @@
 			     bind-key
 			     buffer-move
 			     csharp-mode
+			     doom-themes
 			     dracula-theme
 			     diminish
 			     enh-ruby-mode

@@ -1,8 +1,8 @@
-(load-theme 'atom-one-dark t)
+(load-theme 'doom-one t)
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Fira Code" :height 115 :weight 'normal)
+		    :family "Fira Code" :height 125 :weight 'normal)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
