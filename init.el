@@ -9,14 +9,16 @@
 (use-package edmistond-functions)
 (use-package edmistond-defaults)
 
+(use-package smartparens)
+
 (use-package ace-window
   :bind (("M-p" . ace-window)))
 
-(use-package jscs
-  :init
-  (autoload 'jscs-indent-apply "jscs" nil t)
-  (autoload 'jscs-fix "jscs" nil t)
-  (autoload 'jscs-fix-before-save "jscs" nil t))
+;; (use-package jscs
+;;   :init
+;;   (autoload 'jscs-indent-apply "jscs" nil t)
+;;   (autoload 'jscs-fix "jscs" nil t)
+;;   (autoload 'jscs-fix-before-save "jscs" nil t))
 
 (use-package helm
   :defer t
@@ -138,19 +140,44 @@
   (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.eex\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
 
 ;; autocomplete config
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(setq ac-auto-show-menu 0.2
-      ac-delay 0.2
-      ac-menu-height 20
-      ac-auto-start t
-      ac-show-menu-immediately-on-auto-complete t
-      ac-use-fuzzy 1)
-(add-to-list 'ac-modes 'enh-ruby-mode)
+(use-package company
+  :defer t
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
+;; (require 'auto-complete)
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-show-menu 0.2
+;;       ac-delay 0.2
+;;       ac-menu-height 20
+;;       ac-auto-start t
+;;       ac-show-menu-immediately-on-auto-complete t
+;;       ac-use-fuzzy 1)
+;; (add-to-list 'ac-modes 'enh-ruby-mode)
+
+(use-package elixir-mode
+  :defer t
+  :init
+  (add-hook 'elixir-mode-hook
+	    (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+	      (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+		   "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+	      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+	      (ruby-end-mode +1)))
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair "fn" "end"
+		   :when '(("SPC" "RET"))
+		   :actions '(insert navigate))
+    (sp-local-pair "do" "end"
+		   :when '(("SPC" "RET"))
+		   :post-handlers '(sp-ruby-def-post-handler)
+		   :actions '(insert navigate)))
+  (use-package alchemist))
 
 ;; rvm.el config
 (global-set-key (kbd "C-c r a") 'rvm-activate-corresponding-ruby)
@@ -168,18 +195,60 @@
 
 ;;TODO: javascript/js2 mode configuration
 
-(eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+(use-package npm-mode
+  :init
+  (npm-global-mode))
 
-(add-hook 'js-mode-hook 'js-custom)
+(use-package tern
+  :defer t
+  :init
+  (use-package company-tern
+    :init
+    (add-to-list 'company-backends 'company-tern))
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
+
+  (add-hook 'js-mode-hook 'js-custom))
 ;; (eval-after-load 'js-mode
 ;;   '(define-key js-mode-map "M-." 'tern-find-definition))
 
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (global-auto-revert-mode t)
+(global-hl-line-mode)
+
+(when (memq window-system '(mac ns))
+  (use-package exec-path-from-shell
+    :init
+    (exec-path-from-shell-initialize)))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+(use-package tide)
+
+(setq company-tooltip-align-annotations t)
+(setq tide-format-options '(:tabSize 2 :indentSize 2))
+
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'js2-mode-hook #'setup-tide-mode)
+
+;; (require 'mmm-auto)
+;; (setq mmm-global-mode 'maybe)
+;; (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'js-mode)
+
 
 
 (use-package org-mode
@@ -189,6 +258,7 @@
   (setq org-log-done 'time)
   (put 'erase-buffer 'disabled nil)
 
+  (setq org-src-fontify-natively t)
   ;; org-mode customizations
   (setq org-log-done t
 	org-todo-keywords '((sequence "TODO" "INPROGRESS" "CANNOTREPRO" "NEEDINFO" "DEFERRED" "|" "DONE" "DEPLOYED" "WONTFIX"))
@@ -206,3 +276,17 @@
 (add-hook 'jade-mode-hook
 	  '(lambda ()
 	     (setq tab-width 2)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (dockerfile-mode npm-mode hexo mmm-mode stylus-mode tide exec-path-from-shell tern-auto-complete company-tern tern smartparens alchemist web-mode web-beautify use-package ujelly-theme spacemacs-theme spaceline spacegray-theme solarized-theme smart-newline rvm ruby-interpolation ruby-hash-syntax ruby-guard ruby-end ruby-electric ruby-block robe powershell powerline-evil markdown-mode magit linum-relative key-chord json-reformat helm-projectile golden-ratio evil-surround evil-leader enh-ruby-mode dracula-theme doom-themes csharp-mode company buffer-move base16-theme auto-complete atom-one-dark-theme ag ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

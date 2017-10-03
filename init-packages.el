@@ -14,6 +14,8 @@
 			     base16-theme
 			     bind-key
 			     buffer-move
+			     company
+			     company-tern
 			     csharp-mode
 			     dracula-theme
 			     diminish
@@ -44,6 +46,7 @@
 			     ruby-hash-syntax
 			     ruby-interpolation
 			     rvm
+			     tern
 			     smart-newline
 			     spaceline
 			     solarized-theme

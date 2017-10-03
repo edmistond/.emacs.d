@@ -4,10 +4,11 @@
 (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 
 (package-initialize)
-(setq package-archive-enable-alist '(("melpa" magit)))
+(setq package-archive-enable-alist '(("melpa" magit company)))
 (defvar edmistond/packages '(
 			     ace-window
 			     ag
+			     alchemist
 			     avy
 			     atom-one-dark-theme
 			     auto-complete
@@ -15,13 +16,17 @@
 			     bind-key
 			     buffer-move
 			     csharp-mode
+			     company
+			     company-tern
 			     doom-themes
 			     dracula-theme
 			     diminish
 			     enh-ruby-mode
+			     elixir-mode
 			     evil
 			     evil-leader
 			     evil-surround
+			     exec-path-from-shell
 			     golden-ratio
 			     goto-chg
 			     helm
@@ -32,6 +37,7 @@
 			     linum-relative
 			     magit
 			     markdown-mode
+			     mmm-mode
 			     popup
 			     powerline
 			     powerline-evil
@@ -44,12 +50,16 @@
 			     ruby-guard
 			     ruby-hash-syntax
 			     ruby-interpolation
+			     tern
+			     tide
 			     rvm
 			     smart-newline
+			     smartparens
 			     spaceline
 			     solarized-theme
 			     spacegray-theme
 			     spacemacs-theme
+			     stylus-mode
 			     ujelly-theme
 			     use-package
 			     undo-tree
