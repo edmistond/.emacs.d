@@ -6,11 +6,11 @@
       solarized-height-plus-3 1.0
       solarized-height-plus-4 1.0)
 
-(load-theme 'solarized-dark t)
+(load-theme 'base16-onedark t)
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Monoid" :height 115 :weight 'normal)
+		    :family "Iosevka" :height 135 :weight 'normal)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

@@ -1,7 +1,6 @@
 (require 'cl)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 
 (package-initialize)
 (setq package-archive-enable-alist '(("melpa" magit company)))
@@ -20,7 +19,7 @@
 			     company-tern
 			     doom-themes
 			     dracula-theme
-			     diminish
+			     ;; diminish
 			     enh-ruby-mode
 			     elixir-mode
 			     evil

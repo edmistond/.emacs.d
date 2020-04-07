@@ -1,0 +1,1 @@
+("~/source/jobbyjobjob/" "~/source/clerb-rails/" "~/source/davidedmiston.com/" "~/.emacs.d/" "~/source/davidedmiston.com/.git/" "~/source/todoist-api-ts/" "~/source/finance/" "~/source/feedbin/" "~/source/elixir/financeplayground/")

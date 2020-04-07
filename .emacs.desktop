@@ -1,0 +1,79 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Wed May  9 21:51:25 2018
+;; Desktop file format version 208
+;; Emacs version 25.1.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (23283 42397 739616 0) (desktop . "208") "edmistond@Davids-MacBook-Pro.local" nil nil ((((font-backend mac-ct) (fontsize . 0) (font . "-*-Monoid-normal-normal-semicondensed-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#abb2bf") (background-color . "#282c34") (line-spacing) (left-fringe . 8) (right-fringe . 8) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 0) (scroll-bar-height . 0) (alpha) (fullscreen) (display-type . color) (background-mode . dark) (cursor-color . "#e06c75") (environment) (border-color . "#545862") (powerline-cache) (frameset--id . "60CC-8851-6C27-1CC2") (frameset--mini t . t) (height . 62) (width . 207) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 23) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "Davids-MacBook-Pro.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 4) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 64) (min-pixel-width . 80) (min-pixel-height-ignore . 32) (min-pixel-width-ignore . 32) (min-pixel-height-safe . 16) (min-pixel-width-safe . 16)) leaf (pixel-width . 1672) (pixel-height . 976) (total-width . 209) (total-height . 61) (normal-height . 1.0) (normal-width . 1.0) (buffer "TodoistApiREST.ts" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 0 t nil 0 nil) (vscroll . 0) (dedicated) (point . 1011) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("tide" "company" "typescr" "company-m" "prettier" "one dark" "exec-path"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/.emacs.d/init.el" "~/source/todoist-api-ts/" "~/source/todoist-api-ts/tsconfig.json" "~/source/todoist-api-activity-ts/" "~/source/todoist-api-activity-ts/src/TodoistApiSync.ts" "~/source/todoist-api-activity-ts/src/TodoistActivity.ts" "~/.emacs.d/custom/edmistond-defaults.el" "~/.emacs.d/init-packages.el" "~/.emacs.d/custom/edmistond-packages.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/Users/edmistond/source/todoist-api-ts/src/TodoistApiREST.ts"
+  "TodoistApiREST.ts"
+  'typescript-mode
+  '(eldoc-mode global-auto-revert-mode override-global-mode projectile-mode helm-mode undo-tree-mode company-mode npm-mode flycheck-mode tide-mode)
+  1011
+  '(1011 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode))
+  '((mark-ring (1011 1007 1))))
+
+(desktop-create-buffer 208
+  "/Users/edmistond/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode override-global-mode projectile-mode helm-mode undo-tree-mode company-mode npm-mode flycheck-mode)
+  6968
+  '(6968 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . prefer-utf-8-unix) (overwrite-mode))
+  '((mark-ring (6968 4694 7021 7019 6930 4741 4707))))
+
+(desktop-create-buffer 208
+  "/Users/edmistond/source/todoist-api-ts/tsconfig.json"
+  "tsconfig.json"
+  'js-mode
+  '(global-auto-revert-mode override-global-mode projectile-mode helm-mode undo-tree-mode company-mode npm-mode tern-mode flycheck-mode)
+  205
+  '(205 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring (205 1))))
+
+(desktop-create-buffer 208
+  nil
+  "src"
+  'dired-mode
+  '(global-auto-revert-mode override-global-mode projectile-mode helm-mode company-mode npm-mode)
+  332
+  '(332 nil)
+  t
+  '("/Users/edmistond/source/todoist-api-ts/src/")
+  '((overwrite-mode))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  "todoist-api-ts"
+  'dired-mode
+  '(global-auto-revert-mode override-global-mode projectile-mode helm-mode company-mode npm-mode)
+  877
+  '(877 nil)
+  t
+  '("/Users/edmistond/source/todoist-api-ts/")
+  '((overwrite-mode))
+  '((mark-ring nil)))
+

@@ -1,0 +1,21 @@
+ls
+cd source/
+ls
+mkdir ncts
+cd ncts
+node test.js 
+node test.js 
+node test.js 
+node test.js 
+node test.js 
+node test.js 
+node test.js 
+node test.js 
+exit
+pwd
+nvm ls
+hexo
+nvm
+which npm
+nvm ls
+exit
