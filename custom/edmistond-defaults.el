@@ -2,7 +2,7 @@
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Fira Code" :height 125 :weight 'normal)
+		    :family "Jetbrains Mono" :height 125 :weight 'normal)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
