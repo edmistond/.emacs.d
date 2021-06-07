@@ -5,3 +5,4 @@ auto-save-list/
 *.eld
 network-security.data
 transient/
+projectile.cache
