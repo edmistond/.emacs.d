@@ -36,14 +36,6 @@
 			     powerline-evil
 			     powershell
 			     projectile
-			     robe
-			     ruby-block
-			     ruby-electric
-			     ruby-end
-			     ruby-guard
-			     ruby-hash-syntax
-			     ruby-interpolation
-			     rvm
 			     smart-newline
 			     spaceline
 			     solarized-theme
