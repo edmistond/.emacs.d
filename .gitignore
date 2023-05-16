@@ -6,3 +6,4 @@ auto-save-list/
 network-security.data
 transient/
 projectile.cache
+.cache/
