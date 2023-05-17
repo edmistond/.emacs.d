@@ -2,7 +2,7 @@
       user-mail-address "edmistond@gmail.com")
 
 (require 'package)
-(package-initialize)
+;; (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/custom/")
 (use-package edmistond-packages)
@@ -12,11 +12,11 @@
 (use-package ace-window
   :bind (("M-p" . ace-window)))
 
-(use-package jscs
-  :init
-  (autoload 'jscs-indent-apply "jscs" nil t)
-  (autoload 'jscs-fix "jscs" nil t)
-  (autoload 'jscs-fix-before-save "jscs" nil t))
+;; (use-package jscs
+;;   :init
+;;   (autoload 'jscs-indent-apply "jscs" nil t)
+;;   (autoload 'jscs-fix "jscs" nil t)
+;;   (autoload 'jscs-fix-before-save "jscs" nil t))
 
 (use-package helm
   :defer t
