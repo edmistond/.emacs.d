@@ -2,7 +2,6 @@
       user-mail-address "edmistond@gmail.com")
 
 (require 'package)
-;; (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/custom/")
 (use-package edmistond-packages)
@@ -11,12 +10,6 @@
 
 (use-package ace-window
   :bind (("M-p" . ace-window)))
-
-;; (use-package jscs
-;;   :init
-;;   (autoload 'jscs-indent-apply "jscs" nil t)
-;;   (autoload 'jscs-fix "jscs" nil t)
-;;   (autoload 'jscs-fix-before-save "jscs" nil t))
 
 (use-package helm
   :defer t
@@ -152,39 +145,14 @@
       ac-use-fuzzy 1)
 (add-to-list 'ac-modes 'enh-ruby-mode)
 
-;; rvm.el config
-(global-set-key (kbd "C-c r a") 'rvm-activate-corresponding-ruby)
-
-;; inf-ruby config
-(global-set-key (kbd "C-c r r") 'inf-ruby)
-
-
-;; **** ruby and robe mode configuration ****
-(add-to-list 'auto-mode-alist '("\\.rb\\'" . enh-ruby-mode))
-(add-hook 'enh-ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
-
-;; TODO: additional Ruby configuration
-
-;;TODO: javascript/js2 mode configuration
-
-(eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
-
-(add-hook 'js-mode-hook 'js-custom)
-;; (eval-after-load 'js-mode
-;;   '(define-key js-mode-map "M-." 'tern-find-definition))
-
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (global-auto-revert-mode t)
 
-(use-package lsp-mode
-  :init)
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+;; (use-package lsp-mode
+;;   :init)
+;; (use-package lsp-ui :commands lsp-ui-mode)
+;; (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 
 (use-package org-mode
   :defer t
@@ -201,16 +169,106 @@
   (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
   (setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))))
 
-(add-hook 'jade-mode-hook
-	  '(lambda ()
-	     (setq tab-width 2)))
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(package-selected-packages
+;;    '(smart-newline ruby-block robe powershell powerline-evil powerline markdown-mode magit linum-relative key-chord json-reformat inf-ruby helm-projectile helm golden-ratio evil-surround evil-leader evil enh-ruby-mode diminish dracula-theme doom-themes csharp-mode buffer-move base16-theme auto-complete atom-one-dark-theme ag ace-window use-package)))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(connection-local-criteria-alist
+   '(((:application tramp :machine "localhost")
+      tramp-connection-local-darwin-ps-profile)
+     ((:application tramp :machine "Davids-MacBook-Pro.local")
+      tramp-connection-local-darwin-ps-profile)
+     ((:application tramp)
+      tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile)))
+ '(connection-local-profile-alist
+   '((tramp-connection-local-darwin-ps-profile
+      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
+      (tramp-process-attributes-ps-format
+       (pid . number)
+       (euid . number)
+       (user . string)
+       (egid . number)
+       (comm . 52)
+       (state . 5)
+       (ppid . number)
+       (pgrp . number)
+       (sess . number)
+       (ttname . string)
+       (tpgid . number)
+       (minflt . number)
+       (majflt . number)
+       (time . tramp-ps-time)
+       (pri . number)
+       (nice . number)
+       (vsize . number)
+       (rss . number)
+       (etime . tramp-ps-time)
+       (pcpu . number)
+       (pmem . number)
+       (args)))
+     (tramp-connection-local-busybox-ps-profile
+      (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
+      (tramp-process-attributes-ps-format
+       (pid . number)
+       (user . string)
+       (group . string)
+       (comm . 52)
+       (state . 5)
+       (ppid . number)
+       (pgrp . number)
+       (ttname . string)
+       (time . tramp-ps-time)
+       (nice . number)
+       (etime . tramp-ps-time)
+       (args)))
+     (tramp-connection-local-bsd-ps-profile
+      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
+      (tramp-process-attributes-ps-format
+       (pid . number)
+       (euid . number)
+       (user . string)
+       (egid . number)
+       (group . string)
+       (comm . 52)
+       (state . string)
+       (ppid . number)
+       (pgrp . number)
+       (sess . number)
+       (ttname . string)
+       (tpgid . number)
+       (minflt . number)
+       (majflt . number)
+       (time . tramp-ps-time)
+       (pri . number)
+       (nice . number)
+       (vsize . number)
+       (rss . number)
+       (etime . number)
+       (pcpu . number)
+       (pmem . number)
+       (args)))
+     (tramp-connection-local-default-shell-profile
+      (shell-file-name . "/bin/sh")
+      (shell-command-switch . "-c"))
+     (tramp-connection-local-default-system-profile
+      (path-separator . ":")
+      (null-device . "/dev/null"))))
  '(package-selected-packages
-   '(smart-newline ruby-block robe powershell powerline-evil powerline markdown-mode magit linum-relative key-chord json-reformat inf-ruby helm-projectile helm golden-ratio evil-surround evil-leader evil enh-ruby-mode diminish dracula-theme doom-themes csharp-mode buffer-move base16-theme auto-complete atom-one-dark-theme ag ace-window use-package)))
+   '(magit tree-sitter git-commit key-chord ag web-beautify use-package ujelly-theme tree-sitter-indent solarized-theme diminish atom-one-dark-theme tree-sitter-langs posframe evil-leader robe spacemacs-theme csharp-mode helm-projectile flycheck evil-surround ace-window powerline-evil undo-tree golden-ratio enh-ruby-mode json-reformat smart-newline base16-theme powershell lsp-ui dracula-theme doom-themes linum-relative buffer-move helm-lsp spaceline spacegray-theme company auto-complete web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
