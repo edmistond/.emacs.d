@@ -7,3 +7,6 @@ network-security.data
 transient/
 projectile.cache
 .cache/
+/custom/orgai-config.el
+/projects
+/url/

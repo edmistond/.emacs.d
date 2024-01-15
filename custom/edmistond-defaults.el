@@ -1,8 +1,8 @@
-(load-theme 'doom-one t)
+(load-theme 'doom-challenger-deep t)
 
 ;; http://stackoverflow.com/a/8142077 for set-face-attribute example
 (set-face-attribute 'default nil
-		    :family "Jetbrains Mono" :height 125 :weight 'normal)
+		    :family "Victor Mono" :height 135 :weight 'normal)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -16,6 +16,9 @@
       indent-tabs-mode nil
       make-backup-files nil
       auto-save-default nil)
+
+;; syntax highlight inside triple-backtick markdown code blocks
+(setq markdown-fontify-code-blocks-natively t)
 
 ;; disable command-as-super, because i keep hitting cmd-x to kill region
 ;; by accident and it's super (hah) annoying

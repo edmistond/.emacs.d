@@ -2,11 +2,41 @@
       user-mail-address "edmistond@gmail.com")
 
 (require 'package)
+(setq backup-directory-alist `(("." . "~/.saves")))
 
 (add-to-list 'load-path "~/.emacs.d/custom/")
 (use-package edmistond-packages)
 (use-package edmistond-functions)
 (use-package edmistond-defaults)
+(use-package edmistond-orgai)
+
+;; configure languagetool to use a server running in docker
+;; at localhost:8081, don't want to run our own server here
+(use-package languagetool
+  :ensure t
+  :defer t
+  :commands (languagetool-check
+	     languagetool-clear-suggestions
+             languagetool-correct-at-point
+             languagetool-correct-buffer
+             languagetool-set-language
+             languagetool-server-mode
+             languagetool-server-start
+             languagetool-server-stop)
+  :config
+  (setq languagetool-server-url "http://localhost/"
+	languagetool-server-port "8081"))
+
+(use-package org-ai
+  :ensure t
+  :commands (org-ai-mode
+             org-ai-global-mode)
+  :init
+  (add-hook 'org-mode-hook #'org-ai-mode) ; enable org-ai in org-mode
+  (org-ai-global-mode) ; installs global keybindings on C-c M-a
+  :config
+  (setq org-ai-default-chat-model "gpt-4") ; if you are on the gpt-4 beta:
+  (org-ai-install-yasnippets)) ; if you are using yasnippet and want `ai` snippets
 
 (use-package ace-window
   :bind (("M-p" . ace-window)))
@@ -267,8 +297,10 @@
      (tramp-connection-local-default-system-profile
       (path-separator . ":")
       (null-device . "/dev/null"))))
+ '(custom-safe-themes
+   '("512ce140ea9c1521ccaceaa0e73e2487e2d3826cc9d287275550b47c04072bc4" default))
  '(package-selected-packages
-   '(magit tree-sitter git-commit key-chord ag web-beautify use-package ujelly-theme tree-sitter-indent solarized-theme diminish atom-one-dark-theme tree-sitter-langs posframe evil-leader robe spacemacs-theme csharp-mode helm-projectile flycheck evil-surround ace-window powerline-evil undo-tree golden-ratio enh-ruby-mode json-reformat smart-newline base16-theme powershell lsp-ui dracula-theme doom-themes linum-relative buffer-move helm-lsp spaceline spacegray-theme company auto-complete web-mode)))
+   '(languagetool org-ai gptel magit tree-sitter git-commit key-chord ag web-beautify use-package ujelly-theme tree-sitter-indent solarized-theme diminish atom-one-dark-theme tree-sitter-langs posframe evil-leader robe spacemacs-theme csharp-mode helm-projectile flycheck evil-surround ace-window powerline-evil undo-tree golden-ratio enh-ruby-mode json-reformat smart-newline base16-theme powershell lsp-ui dracula-theme doom-themes linum-relative buffer-move helm-lsp spaceline spacegray-theme company auto-complete web-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
